@@ -7,3 +7,4 @@
 **Resultat attendu**  
 L'utilisation choisi via les cases à cocher les images à afficher  
 Il clique ensuite sur le bouton "Afficher" pour afficher les images selectionnées.  
+
