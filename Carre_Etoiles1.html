@@ -8,17 +8,24 @@ function afficher(){
 	var saisie = parseInt(document.getElementById('V1').value);
 	var resultat = "";	
 		
-	for (j=0; j<saisie ; j++){
-        for (i=0; i<saisie ; i++){
+	for (j = 1; j <= saisie; j++){
+        for (i = 1; i <= j; i++){
                 resultat += "*"; 
         }
-                resultat += "</br>";
-        }
+        resultat += "</br>";
+    }
 	
 	document.getElementById('result').innerHTML = resultat;
-  }
+}
 
 </script>
 
 </head>
-	
+<body>
+<h1>Les étoiles</h1>
+<p>Saisir un chiffre : <input id="V1"/></p>
+<button onclick="afficher()">Afficher</button>
+<div id="result"></div>
+</body>
+</html>
+
