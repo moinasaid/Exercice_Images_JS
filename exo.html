@@ -7,6 +7,16 @@ function controler(){
 
 		}
 	else{document.getElementById('image1').style.display="None";}		
+	if(document.getElementById('Control2').checked){
+			document.getElementById('image2').style.display="Block";
+
+		}
+	else{document.getElementById('image2').style.display="None";}		
+	if(document.getElementById('Control3').checked){
+			document.getElementyId('image3').style.display="Block";
+
+		}
+	else{document.getElementById('image3').style.display="None";}		
 }
 
 </script>
@@ -14,9 +24,13 @@ function controler(){
 <body>
 <h1>Image</h1>
 <hr/>
-<p>Option<input type="checkbox" id="Control"></p>
+<p>Option<input type="checkbox" id="Control">image 1</p>
+	<p>Option<input type="checkbox" id="Control2">image 2</p>
+	<p>Option<input type="checkbox" id="Control3">image 3</p>
 <button onclick="controler()">Check</button><br/>
 <img id="image1" src="Image1.jpg" style="display:None">
+<img id="image2" src="Image2.jpg" style="display:None">
+<img id="image3" src="Image3.jpg" style="display:None">
 
 </body>
 </html>
