@@ -1,24 +1,22 @@
 <html>
 <head>
 <script>
-
-
 function controler(){
 	if(document.getElementById('Control').checked){
-}
-			document.getElementById('image1').style.display="Block";}
+			document.getElementById('image1').style.display="Block";
 
-
-	else{getElementById('image1').style.display="None"}		
+		}
+	else{document.getElementById('image1').style.display="None";}		
 }
-	
+
 </script>
 </head>
-<body> 
-
+<body>
+<h1>Image</h1>
+<hr/>
 <p>Option<input type="checkbox" id="Control"></p>
-<img src= "Image1.jpg"/><hr></hr>
+<button onclick="controler()">Check</button><br/>
+<img id="image1" src="Image1.jpg" style="display:None">
 
-	
-	</body>
-	</html>
+</body>
+</html>
