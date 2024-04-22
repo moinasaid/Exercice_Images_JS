@@ -8,8 +8,8 @@ function afficher(){
 	var saisie = parseInt(document.getElementById('V1').value);
 	var resultat = "";	
 		
-	for (j = -j; j <= saisie; j++){
-        for (i = -i; i <= j; i++){
+	for (j = saisie; j >= 1; j--){
+        for (i = 1; i <= j; i++){
                 resultat += "*"; 
         }
         resultat += "</br>";
