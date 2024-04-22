@@ -21,31 +21,69 @@ function principale(){
 }
 
 function bouger()
-   {var enemyX = parseInt(document.getElementById('enemy').getAttribute("cx"));
+  
+	function bouger() {
+    var enemyX = parseInt(document.getElementById('enemy').getAttribute("cx"));
     var enemyY = parseInt(document.getElementById('enemy').getAttribute("cy"));
     var zoneWidth = 900;
     var zoneHeight = 400;
+
     
-    // Déplacement de l'ennemi
     enemyX += enemySpeedX;
     enemyY += enemySpeedY;
-    
+
     // Rebondissement sur les bords de la zone
-    if (enemyX <= 15 ) {
+    if (enemyX <= 15 || enemyX >= 885) {
         enemySpeedX = -enemySpeedX;
     }
-    if (enemyY <= 15) {
+    if (enemyY <= 15 || enemyY >= 385) {
         enemySpeedY = -enemySpeedY;
     }
+
     
-    // Mise à jour de la position de l'ennemi
     document.getElementById('enemy').setAttribute("cx", enemyX);
     document.getElementById('enemy').setAttribute("cy", enemyY);
 }
 
+function deplacement(evt) {
+    var ballX = parseInt(document.getElementById('ball').getAttribute("cx"));
+    var ballY = parseInt(document.getElementById('ball').getAttribute("cy"));
+    switch (evt.keyCode) {
+        // Gauche 
+        case 37:
+            ballX -= 15;
+            if (ballX < 15) {
+                ballX = 15;
+            }
+            document.getElementById('ball').setAttribute("cx", ballX);
+            break;
+        // Droite 
+        case 39:
+            ballX += 15;
+            if (ballX > 885) {
+                ballX = 885;
+            }
+            document.getElementById('ball').setAttribute("cx", ballX);
+            break;
+        // Haut 
+        case 38:
+            ballY -= 15;
+            if (ballY < 15) {
+                ballY = 15;
+            }
+            document.getElementById('ball').setAttribute("cy", ballY);
+            break;
+        // Bas 
+        case 40:
+            ballY += 15;
+            if (ballY > 385) {
+                ballY = 385;
+            }
+            document.getElementById('ball').setAttribute("cy", ballY);
+            break;
+    }
+}
 
-
-	
 
 
 
