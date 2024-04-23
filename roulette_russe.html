@@ -1,87 +1,146 @@
-<html>
+<html lang="fr">
 <head>
-    <title>Barillet de la Roulette Russe (SVG)</title>
+    <meta charset="UTF-8">
+    <title>Roulette Russe</title>
     <style>
-        svg {
-            display: block;
-            margin: auto;
-        }
-        .chambre {
+        circle {
             cursor: pointer;
         }
     </style>
-</head>
-<body>
-    <h1>Barillet de la Roulette Russe (SVG)</h1>
-    <svg width="200" height="200">
-        
-        <circle cx="100" cy="100" r="80" stroke="black" stroke-width="2" fill="none"/>
-
-        
-        <circle class="chambre" cx="100" cy="150" r="15" stroke="black" stroke-width="2" fill="gray" onclick="tirer(1)"/>
-        <circle class="chambre" cx="145" cy="125" r="15" stroke="black" stroke-width="2" fill="gray" onclick="tirer(2)"/>
-        <circle class="chambre" cx="145" cy="75" r="15" stroke="black" stroke-width="2" fill="gray" onclick="tirer(3)"/>
-        <circle class="chambre" cx="100" cy="50" r="15" stroke="black" stroke-width="2" fill="gray" onclick="tirer(4)"/>
-        <circle class="chambre" cx="55" cy="75" r="15" stroke="black" stroke-width="2" fill="gray" onclick="tirer(5)"/>
-        <circle class="chambre" cx="55" cy="125" r="15" stroke="black" stroke-width="2" fill="gray" onclick="tirer(6)"/>
-    </svg>
-
     <script>
-        var barillet = [0, 0, 0, 0, 0, 0]; // 0 représente une chambre vide, 1 représente la chambre avec la balle
-
-        function tirer(chambre) {
-            if (barillet[chambre - 1] === 1) {
-                alert("BOOM! Vous avez été touché!");
-            } else {
-                alert("Clic. Vous avez survécu.");
-            }
-        }
-    
-    </script>
-    
-    <h2>Choisissez les chambres &agrave tirer :</h2>
-    <form id="selectionForm">
-        <input type="checkbox" id="chambre1" value="1" onclick="selectionnerChambre(this)">
-        <label for="chambre1">Chambre 1</label><br>
-        <input type="checkbox" id="chambre2" value="2" onclick="selectionnerChambre(this)">
-        <label for="chambre2">Chambre 2</label><br>
-        <input type="checkbox" id="chambre3" value="3" onclick="selectionnerChambre(this)">
-        <label for="chambre3">Chambre 3</label><br>
-        <input type="checkbox" id="chambre4" value="4" onclick="selectionnerChambre(this)">
-        <label for="chambre4">Chambre 4</label><br>
-        <input type="checkbox" id="chambre5" value="5" onclick="selectionnerChambre(this)">
-        <label for="chambre5">Chambre 5</label><br>
-        <input type="checkbox" id="chambre6" value="6" onclick="selectionnerChambre(this)">
-        <label for="chambre6">Chambre 6</label><br>
-    </form>
-
-    <button onclick="tirer()">Tirer</button>
-
-    <script>
+        var barillet = [0, 0, 0, 0, 0, 0]; // 0 pour chambre vide, 1 pour chambre avec balle
         var chambresSelectionnees = [];
 
-        function selectionnerChambre(checkbox) {
-            var chambre = parseInt(checkbox.value);
-            if (checkbox.checked) {
+        function trou1() {
+            toggleSelection(1);
+        }
+
+        function trou2() {
+            toggleSelection(2);
+        }
+
+        function trou3() {
+            toggleSelection(3);
+        }
+
+        function trou4() {
+            toggleSelection(4);
+        }
+
+        function trou5() {
+            toggleSelection(5);
+        }
+
+        function trou6() {
+            toggleSelection(6);
+        }
+
+        function toggleSelection(chambre) {
+            if (chambresSelectionnees.length === parseInt(document.querySelector('input[name=balles]:checked').value)) {
+                alert("Vous avez déjà sélectionné toutes les chambres nécessaires.");
+                return;
+            }
+
+            var index = chambresSelectionnees.indexOf(chambre);
+            if (index === -1) {
                 chambresSelectionnees.push(chambre);
+                document.getElementById("Br" + chambre).style.fill = "red";
             } else {
-                var index = chambresSelectionnees.indexOf(chambre);
-                if (index !== -1) {
-                    chambresSelectionnees.splice(index, 1);
-                }
+                chambresSelectionnees.splice(index, 1);
+                document.getElementById("Br" + chambre).style.fill = "gray";
             }
         }
 
-        function tirer() {
-            if (chambresSelectionnees.length === 0) {
-                alert("Veuillez choisir au moins une chambre avant de tirer.");
+        function lancer(nbBalles) {
+            if (chambresSelectionnees.length < nbBalles) {
+                alert("Veuillez sélectionner exactement " + nbBalles + " chambre(s) avant de lancer le barillet.");
             } else {
-                var balleIndex = Math.floor(Math.random() * chambresSelectionnees.length);
-                var chambreTiree = chambresSelectionnees[balleIndex];
-                alert("Vous avez tiré sur la chambre " + chambreTiree + ".");
+                var chambreTiree, gain;
+
+                for (var i = 0; i < nbBalles; i++) {
+                    var balleIndex = Math.floor(Math.random() * chambresSelectionnees.length);
+                    chambreTiree = chambresSelectionnees[balleIndex];
+
+                    if (barillet[chambreTiree - 1] === 1) {
+                        alert("BOOM! Vous avez été touché par la balle dans la chambre " + chambreTiree + ". Vous avez perdu!");
+                        return;
+                    }
+                }
+
+                switch (nbBalles) {
+                    case 1:
+                        gain = 10000;
+                        break;
+                    case 2:
+                        gain = 100000;
+                        break;
+                    case 3:
+                        gain = 1000000;
+                        break;
+                    default:
+                        gain = 0;
+                        break;
+                }
+
+                // Mettre à jour le barillet avec les balles
+                for (var j = 0; j < nbBalles; j++) {
+                    var indexTirage = Math.floor(Math.random() * barillet.length);
+                    barillet[indexTirage] = 1;
+                }
+
+                if (gain > 0) {
+                    alert("Félicitations! Vous avez survécu! Vous avez gagné " + gain + "£.");
+                } else {
+                    alert("Vous avez survécu, mais vous ne gagnez rien cette fois.");
+                }
+
+                // Réinitialiser les chambres et les boutons radio après le jeu
+                resetChambres();
+            }
+        }
+
+        function toggleBalles(nbBalles) {
+            var radios = document.getElementsByName("balles");
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].value <= nbBalles) {
+                    radios[i].disabled = false;
+                } else {
+                    radios[i].disabled = true;
+                    radios[i].checked = false;
+                }
+            }
+            resetChambres();
+        }
+
+        function resetChambres() {
+            chambresSelectionnees = [];
+            var circles = document.querySelectorAll("circle[id^='Br']");
+            for (var i = 0; i < circles.length; i++) {
+                circles[i].style.fill = "gray";
             }
         }
     </script>
+</head>
+<body>
+    <h1>Roulette Russe</h1>
+
+    <svg width="200" height="200" style="background-color: antiquewhite">
+        <circle cx="100" cy="100" r="95" stroke="black" stroke-width="3" fill="none" />
+        <circle onclick="trou1()" id="Br1" cx="100" cy="40" r="25" stroke="black" stroke-width="3" fill="gray" />
+        <circle onclick="trou2()" id="Br2" cx="150" cy="70" r="25" stroke="black" stroke-width="3" fill="gray" />
+        <circle onclick="trou6()" id="Br6" cx="50" cy="70" r="25" stroke="black" stroke-width="3" fill="gray" />
+        <circle onclick="trou5()" id="Br5" cx="50" cy="130" r="25" stroke="black" stroke-width="3" fill="gray" />
+        <circle onclick="trou3()" id="Br3" cx="150" cy="130" r="25" stroke="black" stroke-width="3" fill="gray" />
+        <circle onclick="trou4()" id="Br4" cx="100" cy="160" r="25" stroke="black" stroke-width="3" fill="gray" />
+        <circle cx="100" cy="100" r="10" stroke="black" stroke-width="3" fill="black" />
+    </svg>    
+    
+    <p>Sélectionnez le nombre de balles à lancer :</p>
+    <label><input type="radio" name="balles" value="1" onclick="toggleBalles(1)"> 1 balle</label>
+    <label><input type="radio" name="balles" value="2" onclick="toggleBalles(2)"> 2 balles</label>
+    <label><input type="radio" name="balles" value="3" onclick="toggleBalles(3)"> 3 balles</label>
+    
+    <button onclick="lancer(parseInt(document.querySelector('input[name=balles]:checked').value))">Jouer</button>
 </body>
 </html>
 
@@ -91,6 +150,4 @@
 
 
 
-
   
-</html>
