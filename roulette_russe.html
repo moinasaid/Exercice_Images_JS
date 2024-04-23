@@ -26,7 +26,7 @@
         <circle class="chambre" cx="55" cy="125" r="15" stroke="black" stroke-width="2" fill="gray" onclick="tirer(6)"/>
     </svg>
 
-    <script>
+    
         var barillet = [0, 0, 0, 0, 0, 0]; // 0 représente une chambre vide, 1 représente la chambre avec la balle
 
         function tirer(chambre) {
@@ -36,20 +36,21 @@
                 alert("Clic. Vous avez survécu.");
             }
         }
-    </script>
+    
+    
     <h2>Choisissez les chambres à tirer :</h2>
     <form id="selectionForm">
-        <input type="checkbox" id="chambre1" value="1">
+        <input type="checkbox" id="chambre1" value="1" onclick="selectionnerChambre(this)">
         <label for="chambre1">Chambre 1</label><br>
-        <input type="checkbox" id="chambre2" value="2">
+        <input type="checkbox" id="chambre2" value="2" onclick="selectionnerChambre(this)">
         <label for="chambre2">Chambre 2</label><br>
-        <input type="checkbox" id="chambre3" value="3">
+        <input type="checkbox" id="chambre3" value="3" onclick="selectionnerChambre(this)">
         <label for="chambre3">Chambre 3</label><br>
-        <input type="checkbox" id="chambre4" value="4">
+        <input type="checkbox" id="chambre4" value="4" onclick="selectionnerChambre(this)">
         <label for="chambre4">Chambre 4</label><br>
-        <input type="checkbox" id="chambre5" value="5">
+        <input type="checkbox" id="chambre5" value="5" onclick="selectionnerChambre(this)">
         <label for="chambre5">Chambre 5</label><br>
-        <input type="checkbox" id="chambre6" value="6">
+        <input type="checkbox" id="chambre6" value="6" onclick="selectionnerChambre(this)">
         <label for="chambre6">Chambre 6</label><br>
     </form>
 
@@ -58,12 +59,15 @@
     <script>
         var chambresSelectionnees = [];
 
-        function selectionnerChambre(chambre) {
-            var index = chambresSelectionnees.indexOf(chambre);
-            if (index === -1) {
+        function selectionnerChambre(checkbox) {
+            var chambre = parseInt(checkbox.value);
+            if (checkbox.checked) {
                 chambresSelectionnees.push(chambre);
             } else {
-                chambresSelectionnees.splice(index, 1);
+                var index = chambresSelectionnees.indexOf(chambre);
+                if (index !== -1) {
+                    chambresSelectionnees.splice(index, 1);
+                }
             }
         }
 
@@ -77,9 +81,6 @@
             }
         }
     </script>
-
-
-    
 </body>
 </html>
 
