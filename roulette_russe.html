@@ -1,1 +1,51 @@
+<html>
+<head>
+    <title>Barillet de la Roulette Russe (SVG)</title>
+    <style>
+        svg {
+            display: block;
+            margin: auto;
+        }
+        .chambre {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Barillet de la Roulette Russe (SVG)</h1>
+    <svg width="200" height="200">
+        
+        <circle cx="100" cy="100" r="80" stroke="black" stroke-width="2" fill="none"/>
 
+        
+        <circle class="chambre" cx="100" cy="150" r="15" stroke="black" stroke-width="2" fill="gray" onclick="tirer(1)"/>
+        <circle class="chambre" cx="145" cy="125" r="15" stroke="black" stroke-width="2" fill="gray" onclick="tirer(2)"/>
+        <circle class="chambre" cx="145" cy="75" r="15" stroke="black" stroke-width="2" fill="gray" onclick="tirer(3)"/>
+        <circle class="chambre" cx="100" cy="50" r="15" stroke="black" stroke-width="2" fill="gray" onclick="tirer(4)"/>
+        <circle class="chambre" cx="55" cy="75" r="15" stroke="black" stroke-width="2" fill="gray" onclick="tirer(5)"/>
+        <circle class="chambre" cx="55" cy="125" r="15" stroke="black" stroke-width="2" fill="gray" onclick="tirer(6)"/>
+    </svg>
+
+    <script>
+        var barillet = [0, 0, 0, 0, 0, 0]; // 0 représente une chambre vide, 1 représente la chambre avec la balle
+
+        function tirer(chambre) {
+            if (barillet[chambre - 1] === 1) {
+                alert("BOOM! Vous avez été touché!");
+            } else {
+                alert("Clic. Vous avez survécu.");
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+  
+</html>
